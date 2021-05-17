@@ -8,6 +8,11 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	
+	<!-- 改變Post Request & Response 的編碼 -->
+	<!-- 注意：使用<request-character-encoding> 會導致Eclipse無法新建Servlet， 目前Eclipse尚未解決此Bug -->
+	<!-- <request-character-encoding>UTF-8</request-character-encoding> -->
+	<!-- <response-character-encoding>UTF-8</response-character-encoding> -->
+	
 	<!--
 	<servlet>
         <servlet-name>registerSLServlet</servlet-name>

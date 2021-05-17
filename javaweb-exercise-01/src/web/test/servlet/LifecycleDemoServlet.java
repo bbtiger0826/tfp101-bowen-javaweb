@@ -1,7 +1,7 @@
 package web.test.servlet;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,12 +26,15 @@ public class LifecycleDemoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try (
-	            Writer writer = response.getWriter();
+	            // 抓取response通道(IO)，準備傳送資料
+                // PrintWriter 以列為單位寫出
+	            PrintWriter writer = response.getWriter();
 	    ) {
-	        //
+	        // SimpleDateFormat(String pattern) 時間格式化 <- new java.util.Date.Date()
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	        String dateTime = sdf.format(new Date());
 	        
+	        // 取得當下 時 分 秒
 	        String dateTime2 = new Time(System.currentTimeMillis()).toString();
 	        
 	        writer.append(dateTime);

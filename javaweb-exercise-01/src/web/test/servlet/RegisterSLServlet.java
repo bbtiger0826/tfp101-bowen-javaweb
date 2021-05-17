@@ -1,7 +1,7 @@
 package web.test.servlet;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 
 import javax.servlet.ServletConfig;
@@ -44,13 +44,15 @@ public class RegisterSLServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try (
-	            Writer writer = response.getWriter();
+	            // 抓取response通道(IO)，準備傳送資料
+                // PrintWriter 以列為單位寫出
+	            PrintWriter writer = response.getWriter();
 	    ) {
 	        // 取得Servlet初始化用的參數
 	        ServletConfig config = getServletConfig();
-	        // 取得Servlet所有初始化參數的名稱
+	        // 取得Servlet所有config(初始化)參數的名稱
 	        Enumeration<String> initParams = config.getInitParameterNames();
-	        // 遞迴抓取
+	        // 遞迴抓取name(可以不用知道有哪些name)，在一個個取得value
 	        while (initParams.hasMoreElements()) {
 	            name = initParams.nextElement();
 	            value = config.getInitParameter(name);
