@@ -3,6 +3,7 @@ package web.test.servlet;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -16,9 +17,19 @@ public class PdfServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    // request & response 的編碼方式
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("charset=UTF-8");
+	    
 		// 將.pdf檔寫出至客戶端
 		String file = "/WEB-INF/pdf/test.pdf";
-		response.setContentType("application/pdf"); // 一定要在處理訊息本體前設定
+		// 一定要在處理訊息本體前設定
+//		response.setContentType("application/pdf");
+		
+		// 如果想要強制下載，要改變MIME Type設定
+		response.setContentType("application/octet-stream"); // MIME Type設定
+		String filename = URLEncoder.encode("測試.pdf", "UTF-8"); // 設定中文檔名
+		response.setHeader("Content-Disposition", "attachment;filename=" + filename); // 設定檔名
 		try (
 		        // 位元組讀入(2種方式)
 		        InputStream is = getServletContext().getResourceAsStream(file);

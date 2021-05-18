@@ -21,6 +21,37 @@
         </div>
         <input type="submit" name="" value="submit">
     </form>
+
+    <button id="btn01">TEST</button>
+    <script type="text/javascript">
+        const btn01 = document.getElementById('btn01');
+        btn01.onclick = () => {
+            // (前端 JavaScript程式碼) 接收Servlet回應的JSON格式資料，並從中取出檔案
+            function downloadFile() {
+                fetch("JsonFileTest")
+                    .then((resp) => resp.json())
+                    .then((body) => {
+                        const { account, image } = body;
+                        // 解碼Base64字串
+                        const bytesStr = atob(image);
+                        let len = bytesStr.length;
+                        const u8Array = new Uint8Array(len);
+                        while (len--) {
+                        u8Array[len] = bytesStr.charCodeAt(len);
+                        }
+                        const blob = new Blob([u8Array]);
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = account + ".jpg";
+                        document.body.append(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                    });
+            }
+        };
+    </script>
 </body>
 
 </html>

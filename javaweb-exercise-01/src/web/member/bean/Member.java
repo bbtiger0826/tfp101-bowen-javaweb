@@ -1,35 +1,28 @@
-package web.test.servlet;
+package web.member.bean;
 
 import java.sql.Timestamp;
 
 public class Member {
-    private Integer id; // 會員編號
-    private String account; // 帳號
-    private String password; // 密碼
-    private Boolean pass; // 激活記號
-    private Timestamp lastUpdateDate; // 最後修改日期
-    private String image; // 圖片
+    private Integer id;
+    private String account;
+    private String password;
+    private String nickname;
+    private Boolean pass;
+    private Timestamp lastUpdateDate;
     
     public Member() {
         
     }
     
-    public Member(Integer id, String account, String password, Boolean pass, Timestamp lastUpdateDate, String image) {
+    public Member(Integer id, String account, String password, String nickname, Boolean pass,
+            Timestamp lastUpdateDate) {
         super();
         this.id = id;
         this.account = account;
         this.password = password;
+        this.nickname = nickname;
         this.pass = pass;
         this.lastUpdateDate = lastUpdateDate;
-        this.image = image;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Integer getId() {
@@ -54,6 +47,14 @@ public class Member {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Boolean getPass() {
