@@ -20,11 +20,15 @@ public class UseJsonFormatServlet extends HttpServlet {
 	private Gson gson = new Gson();
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    // request & response 的編碼方式
+        request.setCharacterEncoding("UTF-8");
 	    response.setContentType("application/json; charset=UTF-8");
 	    
 	    // 讀入JSON格式的會員資料，將帳號激活(pass = true)，以 JSON格式寫出激活後的會員
 	    try (
+	            // 取得用來從前端讀入純文字資料的Reader
 	            BufferedReader br = request.getReader();
+	            // 
 	            PrintWriter pw = response.getWriter();
 	    ) {
 	        // 讀入JSON格式的會員資料
